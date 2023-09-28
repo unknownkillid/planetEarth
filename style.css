@@ -57,13 +57,6 @@
     transition: 0.5s;
 }
 
-.greenborders {
-    padding: 10px;
-    border: 3px solid red;
-    width: 400px;
-    position: relative;
-}
-
 .startNone {
     transform: scale(0%);
 }
@@ -77,16 +70,10 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.bordergreen {
-    border: 3px solid green;
+.progress {
+    width: 700px;
 }
 
-.loadingcenter {
-    width: 0px;
-    height: 52px;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    z-index: -1;
-    background-color: green;
+.progress-bar-green {
+    background-color: green !important;
 }

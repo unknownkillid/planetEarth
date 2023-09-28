@@ -15,42 +15,33 @@ startButton.addEventListener('click', () => {
         }, 700);
     }, 500);
 
-    const loadingItems = document.querySelectorAll('.percentLoading');
-    const headers = document.querySelectorAll('.loadingDiv h1');
-    const loadingCenter = document.querySelectorAll('.loadingcenter');
-    let currentIndex = 0;
+    function updateProgressBar(progressBar, targetWidth, interval) {
+      let currentWidth = 0;
+      const step = 1;
+      const progressBarElement = progressBar.querySelector(".progress-bar");
 
-    function animateLoading() {
-        const currentLoadingItem = loadingItems[currentIndex];
-        const currentHeader = headers[currentIndex];
-        const loadingGreen = loadingCenter[currentIndex]
-        let currentPercentage = 0;
+      const update = () => {
+          currentWidth += step;
+          progressBarElement.style.width = currentWidth + "%";
+          progressBarElement.textContent = currentWidth + "%";
 
-        const animationInterval = setInterval(() => {
-            currentPercentage += 1;
-            currentLoadingItem.textContent = currentPercentage + '%';
-            loadingGreen.style.width += 1
+          if (currentWidth < targetWidth) {
+              requestAnimationFrame(update);
+          } else if (currentWidth === 100) {
+            progressBarElement.classList.add("progress-bar-green");
+        }
+      };
 
+      setTimeout(update, interval);
+  }
 
-            if (currentPercentage >= 100) {
-                clearInterval(animationInterval);
-                currentLoadingItem.style.opacity = 1;
-                currentIndex++;
-                const activate = new Audio()
-                activate.src = 'assets/sounds/Audio systems activa.m4a'
-                activate.play()
+  const progressBarElements = document.querySelectorAll(".progress");
+  const intervals = [1500, 3000, 4500, 6000];
 
-                if (currentIndex < loadingItems.length) {
-                    setTimeout(animateLoading, 1500);
-
-                }
-                currentHeader.style.border = '3px solid green';
-            }
-        }, 20);
-
-    }
-
-    animateLoading();
+  progressBarElements.forEach((progressBar, index) => {
+      const targetWidth = 100;
+      updateProgressBar(progressBar, targetWidth, intervals[index]);
+  });
 })
 
 
